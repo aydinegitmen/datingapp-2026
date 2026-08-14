@@ -1,0 +1,21 @@
+using System;
+using API.Data;
+using API.Entities;
+using API.Interfaces;
+using API.Services;
+
+namespace API.Extentions;
+
+public static class AppUserExtentions
+{
+    public static UserDto ToDto(this AppUser user, ITokenService tokenService)
+    {
+        return new UserDto
+        {
+            Id = user.Id,
+            DisplayName = user.DisplayName,
+            Email = user.Email,
+            Token = tokenService.CreateToken(user)
+        };
+    }
+}
