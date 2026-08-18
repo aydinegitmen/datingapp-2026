@@ -3,16 +3,19 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API.Data.Migration
+namespace API.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20260817182753_MemberEntityAdded")]
+    partial class MemberEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.10");
@@ -43,7 +46,7 @@ namespace API.Data.Migration
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("API.Entities.Member", b =>
@@ -84,7 +87,7 @@ namespace API.Data.Migration
 
                     b.HasKey("Id");
 
-                    b.ToTable("Members", (string)null);
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -108,18 +111,18 @@ namespace API.Data.Migration
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("Photos", (string)null);
+                    b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("API.Entities.Member", b =>
+            modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
-                    b.HasOne("API.Entities.AppUser", "User")
-                        .WithOne("Member")
-                        .HasForeignKey("API.Entities.Member", "Id")
+                    b.HasOne("API.Entities.Member", "Member")
+                        .WithOne("User")
+                        .HasForeignKey("API.Entities.AppUser", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -133,9 +136,9 @@ namespace API.Data.Migration
                     b.Navigation("Member");
                 });
 
-            modelBuilder.Entity("API.Entities.AppUser", b =>
+            modelBuilder.Entity("API.Entities.Member", b =>
                 {
-                    b.Navigation("Member")
+                    b.Navigation("User")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
