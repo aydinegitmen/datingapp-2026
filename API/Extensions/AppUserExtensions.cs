@@ -4,9 +4,9 @@ using API.Entities;
 using API.Interfaces;
 using API.Services;
 
-namespace API.Extentions;
+namespace API.Extensions;
 
-public static class AppUserExtentions
+public static class AppUserExtensions
 {
     public static UserDto ToDto(this AppUser user, ITokenService tokenService)
     {
