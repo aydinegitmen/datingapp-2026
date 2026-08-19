@@ -114,7 +114,7 @@ namespace API.Controllers
             if (member == null) return BadRequest("cannot get member from token");
 
             var photo = member.Photos.SingleOrDefault(x => x.Id == photoId);
-            
+
             if (photo == null || photo.Url == member.ImageUrl)
             {
                 return BadRequest("This photo cannot be deleted");
